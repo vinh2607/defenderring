@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Defender Ring - Runner Rings</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        /* Top Banner */
+        .top-banner {
+            background-color: #52778b;
+            color: white;
+            text-align: center;
+            padding: 8px 16px;
+            font-size: 14px;
+            position: relative;
+        }
+
+        .close-banner {
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        /* Header */
+        .header {
+            background: white;
+            padding: 16px 0;
+            border-bottom: 1px solid #e5e7eb;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        .nav {
+            display: flex;
+            gap: 40px;
+        }
+
+        .nav a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .header-right a {
+            text-decoration: none;
+            color: #6b7280;
+        }
+
+        .mobile-menu {
+            display: none;
+            flex-direction: column;
+            gap: 4px;
+            cursor: pointer;
+        }
+
+        .mobile-menu span {
+            width: 25px;
+            height: 3px;
+            background: #333;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: rgb(252 248 242);
+            padding: 80px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            min-height: 600px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            z-index: 1;
+        }
+
+        .hero-background-section {
+            position: relative;
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .hero-background-section:nth-child(1) {
+            background-image: url('https://www.defenderring.com/cdn/shop/products/TalonDefenderRing_Steel-SelfDefenseRingJewelry-RightZoomedOut-Pink042423_720x.jpg?height=400&width=400&text=Gold+Crown+Ring');
+            mix-blend-mode: multiply;
+        }
+
+        .hero-background-section:nth-child(2) {
+            background-image: url('https://www.defenderring.com/cdn/shop/files/TalonDefenderRing_18KGold-SelfDefenseRingJewelry-Front_900x.jpg?height=400&width=400&text=Silver+Crown+Ring');
+            mix-blend-mode: multiply;
+        }
+
+        .hero-background-section:nth-child(3) {
+            background-image: url('https://www.defenderring.com/cdn/shop/files/TalonDefenderRing_RoseGold-SelfDefenseRingJewelry-Left_900x.jpg?height=400&width=400&text=Black+Crown+Ring');
+            mix-blend-mode: multiply;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.1);
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            font-weight: 300;
+            letter-spacing: 8px;
+            margin-bottom: 40px;
+            color: #5b5b5b;
+            position: relative;
+            z-index: 3;
+        }
+
+        .hero-rings {
+            display: none;
+        }
+
+        .cta-button {
+            background: white;
+            border: 2px solid #333;
+            padding: 12px 30px;
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 3;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .cta-button:hover {
+            background: #333;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Products Grid */
+        .products {
+            padding: 80px 20px;
+            background: white;
+        }
+
+        .products-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+        }
+
+        .product-card {
+            text-align: center;
+            background: rgb(252 248 242);
+            padding: 20px;
+            border-radius: 8px;
+            mix-blend-mode: multiply;
+        }
+
+        .product-image {
+            width: 200px;
+            height: 200px;
+            object-fit: contain;
+            margin-bottom: 20px;
+        }
+
+        .product-title {
+            font-size: 24px;
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+
+        .product-price {
+            font-size: 18px;
+            color: #6b7280;
+            margin-bottom: 15px;
+        }
+
+        .color-options {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+
+        .color-option {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 2px solid #e5e7eb;
+            cursor: pointer;
+        }
+
+        .color-steel { background: #9ca3af; }
+        .color-gold { background: #fbbf24; }
+        .color-rose { background: #f472b6; }
+        .color-black { background: #1f2937; }
+
+        .product-material {
+            color: #6b7280;
+            font-size: 14px;
+        }
+
+        /* Footer */
+        .footer {
+            background: #f9fafb;
+            padding: 60px 20px 20px;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 8px;
+        }
+
+        .footer-section ul li a {
+            text-decoration: none;
+            color: #6b7280;
+            font-size: 14px;
+        }
+
+        .footer-section ul li a:hover {
+            color: #333;
+        }
+
+        .contact-info {
+            font-size: 14px;
+            color: #6b7280;
+            line-height: 1.6;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-icons a {
+            width: 30px;
+            height: 30px;
+            background: #e5e7eb;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: #6b7280;
+        }
+
+        .newsletter {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .newsletter input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #d1d5db;
+            border-radius: 4px;
+        }
+
+        .newsletter button {
+            padding: 10px 20px;
+            background: #333;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .payment-icon {
+            width: 40px;
+            height: 25px;
+            background: #e5e7eb;
+            border-radius: 4px;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #e5e7eb;
+            color: #6b7280;
+            font-size: 14px;
+        }
+
+        /* Mobile Styles */
+        @media (max-width: 768px) {
+            .nav {
+                display: none;
+            }
+
+            .mobile-menu {
+                display: flex;
+            }
+
+            .logo {
+            font-size: 18px;
+            padding-right: 10px;
+            }
+
+            .header-right {
+                gap: 15px;
+            }
+
+            .header-right a {
+            display: none;
+            }
+
+            .hero {
+                min-height: 500px;
+                padding: 60px 20px;
+            }
+
+            .hero-background {
+                display: block;
+                background-image: url('https://www.defenderring.com/cdn/shop/products/TalonDefenderRing_Steel-SelfDefenseRingJewelry-RightZoomedOut-Pink042423_720x.jpg');
+                background-size: contain;
+                background-position: center;
+                background-repeat: no-repeat;
+                background-color: rgb(252 248 242);
+                mix-blend-mode: multiply;
+            }
+
+            .hero-background-section {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 32px;
+                letter-spacing: 4px;
+                margin-bottom: 30px;
+            }
+
+            .hero-rings {
+                display: none;
+            }
+
+            .products-grid {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 20px;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .newsletter {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero {
+                padding: 40px 20px;
+                min-height: 400px;
+            }
+
+            .hero h1 {
+                font-size: 24px;
+                letter-spacing: 2px;
+            }
+
+            .products {
+                padding: 40px 20px;
+            }
+
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+<!-- Top Banner -->
+<div class="top-banner">
+    Free Shipping On All US Orders
+    <button class="close-banner">&times;</button>
+</div>
+
+<!-- Header -->
+<header class="header">
+    <div class="header-container">
+        <div class="mobile-menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <div class="logo">DEFENDER RING</div>
+
+        <nav class="nav">
+            <a href="#shop">SHOP</a>
+            <a href="#about">ABOUT</a>
+            <a href="#policies">POLICIES</a>
+        </nav>
+
+        <div class="header-right">
+            <a href="#help">Help Center</a>
+            <a href="#account">👤</a>
+            <a href="#cart">🛒</a>
+        </div>
+    </div>
+</header>
+
+<!-- Hero Section -->
+<section class="hero">
+    <div class="hero-background">
+        <div class="hero-background-section"></div>
+        <div class="hero-background-section"></div>
+        <div class="hero-background-section"></div>
+    </div>
+    <div class="hero-overlay"></div>
+    <div class="hero-container">
+        <h1>RUNNER RINGS</h1>
+        <a href="#shop" class="cta-button">SHOP RUNNER RINGS</a>
+    </div>
+</section>
+
+<!-- Products Grid -->
+<section class="products">
+    <div class="products-container">
+        <div class="products-grid">
+            <div class="product-card">
+                <img src="https://www.defenderring.com/cdn/shop/products/SoloWhiteGoldSinglePointRing-3DRenderingFrontView_49a88bd1-220d-4141-8c4b-ca768f84fa38_720x.jpg?height=200&width=200" alt="Solo Ring" class="product-image">
+                <h3 class="product-title">Solo</h3>
+                <p class="product-price">$45</p>
+                <div class="color-options">
+                    <div class="color-option color-steel"></div>
+                    <div class="color-option color-gold"></div>
+                    <div class="color-option color-rose"></div>
+                    <div class="color-option color-black"></div>
+                </div>
+                <p class="product-material">Steel</p>
+            </div>
+
+            <div class="product-card">
+                <img src="https://www.defenderring.com/cdn/shop/products/DuoWhiteGoldDoublePointRing-3DRenderingFrontView_96ec8168-5196-48ff-beae-9000ebfc6338_720x.jpg?height=150&width=150" alt="Duo Ring" class="product-image">
+                <h3 class="product-title">Duo</h3>
+                <p class="product-price">$45</p>
+                <div class="color-options">
+                    <div class="color-option color-steel"></div>
+                    <div class="color-option color-gold"></div>
+                    <div class="color-option color-rose"></div>
+                    <div class="color-option color-black"></div>
+                </div>
+                <p class="product-material">Steel</p>
+            </div>
+
+            <div class="product-card">
+                <img src="https://www.defenderring.com/cdn/shop/products/TrioSteelFront-3DRendering_f446b700-1bd3-4be8-9db7-6a269c5118cd_720x.jpg?height=150&width=150" alt="Crown Ring" class="product-image">
+                <h3 class="product-title">Crown</h3>
+                <p class="product-price">$45</p>
+                <div class="color-options">
+                    <div class="color-option color-steel"></div>
+                    <div class="color-option color-gold"></div>
+                    <div class="color-option color-rose"></div>
+                    <div class="color-option color-black"></div>
+                </div>
+                <p class="product-material">Steel</p>
+            </div>
+
+            <div class="product-card">
+                <img src="defenderring.com/cdn/shop/files/Peak_Front_ColoredBackground1024_720x.jpg?height=150&width=150" alt="Classic Ring" class="product-image">
+                <h3 class="product-title">Classic</h3>
+                <p class="product-price">$45</p>
+                <div class="color-options">
+                    <div class="color-option color-steel"></div>
+                    <div class="color-option color-gold"></div>
+                    <div class="color-option color-rose"></div>
+                    <div class="color-option color-black"></div>
+                </div>
+                <p class="product-material">Steel</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="footer-container">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>DEFENDER RING</h3>
+                <div class="contact-info">
+                    <p><strong>Contact</strong></p>
+                    <p>Defender Ring, LLC<br>
+                        350 Canal Street #188<br>
+                        New York, NY 10013<br>
+                        866-832-1692</p>
+                    <p>hello@defenderring.com (New Customers)<br>
+                        support@defenderring.com (Current Customers)</p>
+                    <p>https://www.defenderring.com</p>
+                </div>
+                <div class="social-icons">
+                    <a href="#instagram">📷</a>
+                    <a href="#tiktok">🎵</a>
+                    <a href="#rss">📡</a>
+                    <a href="#pinterest">📌</a>
+                </div>
+            </div>
+
+            <div class="footer-section">
+                <h3>Support</h3>
+                <ul>
+                    <li><a href="#all-rings">All Rings</a></li>
+                    <li><a href="#ring-tops">Ring Tops</a></li>
+                    <li><a href="#find-size">Find Your Ring Size</a></li>
+                    <li><a href="#shipping">Shipping</a></li>
+                    <li><a href="#returns">Returns</a></li>
+                    <li><a href="#exchanges">Exchanges</a></li>
+                    <li><a href="#warranty">Lifetime Protection Warranty</a></li>
+                    <li><a href="#tsa">TSA Warranty</a></li>
+                    <li><a href="#discounts">Discounts</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3>About</h3>
+                <ul>
+                    <li><a href="#about-us">About Us</a></li>
+                    <li><a href="#social-mission">Social Mission</a></li>
+                    <li><a href="#about-rings">About Our Rings</a></li>
+                    <li><a href="#sponsorships">Sponsorships</a></li>
+                    <li><a href="#investment">Investment & Partnership Opportunities</a></li>
+                    <li><a href="#ring-faqs">Ring FAQs</a></li>
+                    <li><a href="#wholesale">Wholesale</a></li>
+                    <li><a href="#affiliate">Affiliate Program</a></li>
+                    <li><a href="#gift-cards">Gift Cards</a></li>
+                    <li><a href="#press">Press & Media Kit</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3>Policies</h3>
+                <ul>
+                    <li><a href="#legal">Legal Disclaimer</a></li>
+                    <li><a href="#website-disclaimer">Website Disclaimer</a></li>
+                    <li><a href="#privacy">Privacy Policy</a></li>
+                    <li><a href="#terms">Terms of Service</a></li>
+                    <li><a href="#accessibility">Web Accessibility Statement</a></li>
+                </ul>
+
+                <h3 style="margin-top: 30px;">Sign up and save</h3>
+                <p style="font-size: 14px; color: #6b7280; margin-bottom: 15px;">Subscribe to get product updates and special offers.</p>
+                <div class="newsletter">
+                    <input type="email" placeholder="Email">
+                    <button type="submit">Subscribe</button>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            © 2025 Defender Ring All Rights Reserved
+        </div>
+    </div>
+</footer>
+
+<script>
+    // Close banner functionality
+    document.querySelector('.close-banner').addEventListener('click', function() {
+        document.querySelector('.top-banner').style.display = 'none';
+    });
+
+    // Mobile menu toggle (basic functionality)
+    document.querySelector('.mobile-menu').addEventListener('click', function() {
+        const nav = document.querySelector('.nav');
+        nav.style.display = nav.style.display === 'flex' ? 'none' : 'flex';
+    });
+</script>
+</body>
+</html>
