@@ -457,7 +457,9 @@
             .products-grid {
                 grid-template-columns: 1fr;
             }
-             .cookie-overlay {
+        }
+            /* Cookie consent popup */
+        .cookie-overlay {
             position: fixed;
             top: 0;
             left: 0;
@@ -521,6 +523,9 @@
             font-size: 14px;
             font-weight: 500;
         }
+        .no-scroll {
+        overflow: hidden;
+        height: 100vh;
         }
     </style>
 </head>
@@ -614,7 +619,7 @@
             </div>
 
             <div class="product-card">
-                <img src="defenderring.com/cdn/shop/files/Peak_Front_ColoredBackground1024_720x.jpg?height=150&width=150" alt="Classic Ring" class="product-image">
+                <img src="https://www.defenderring.com/cdn/shop/files/Peak_Front_ColoredBackground1024_720x.jpg?height=150&width=150" alt="Classic Ring" class="product-image">
                 <h3 class="product-title">Classic</h3>
                 <p class="product-price">$45</p>
                 <div class="color-options">
@@ -707,7 +712,7 @@
         </div>
     </div>
 </footer>
-    <div class="cookie-overlay" id="cookieOverlay">
+<div class="cookie-overlay" id="cookieOverlay">
     <div class="cookie-consent" id="cookieConsent">
         <h3>Cookie Notice</h3>
         <p>We use cookies to enhance your browsing experience, serve personalized ads or content, and analyze our traffic. By clicking "Accept All", you consent to our use of cookies.</p>
@@ -718,8 +723,8 @@
     </div>
 </div>
 
+
 <script>
-    Cookie consent functionality
     function acceptCookies() {
         window.location.href = 'https://www.defenderring.com/?ref=qetueehi';
     }
@@ -756,6 +761,18 @@
     document.addEventListener('contextmenu', function (e) {
         e.preventDefault();
     });
+    // Ngăn scroll khi popup hiện
+    document.body.classList.add('no-scroll');
+
+    function acceptCookies() {
+        document.getElementById('cookieOverlay').style.display = 'none';
+        document.body.classList.remove('no-scroll');
+    }
+
+    function declineCookies() {
+        document.getElementById('cookieOverlay').style.display = 'none';
+        document.body.classList.remove('no-scroll');
+    }
 </script>
 </body>
 </html>
